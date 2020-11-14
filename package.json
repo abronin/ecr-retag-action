@@ -1,0 +1,37 @@
+{
+  "name": "ecr-retag-action",
+  "version": "0.1.0",
+  "description": "Retag existing Docker image in AWS ECR without pulling",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint **.js",
+    "package": "ncc build index.js -o dist",
+    "test": "eslint **.js && jest --coverage --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abronin/ecr-retag-action.git"
+  },
+  "keywords": [
+    "AWS",
+    "ECR",
+    "GitHub",
+    "Actions",
+    "JavaScript"
+  ],
+  "author": "Andrey Bronin <abronin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abronin/ecr-retag-action/issues"
+  },
+  "homepage": "https://github.com/abronin/ecr-retag-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "aws-sdk": "^2.788.0"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.22.3",
+    "eslint": "^7.13.0",
+    "jest": "^26.6.3"
+  }
+}
