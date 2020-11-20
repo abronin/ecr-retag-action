@@ -1,13 +1,12 @@
-## Retag Docker image in AWS ECR without pulling
+## About
 
-GitHub Action to retag existing Docker image in AWS ECR.
+GitHub Action to add new tags to existing Docker Image. No pull/push here because of manifest schema v2 usage. Only works with AWS ECR registry.
 
 **Table of Contents**
 
 <!-- toc -->
 
 - [Usage](#usage)
-- [Credentials and Region](#credentials-and-region)
 - [License Summary](#license-summary)
 - [Security Disclosures](#security-disclosures)
 
@@ -15,8 +14,55 @@ GitHub Action to retag existing Docker image in AWS ECR.
 
 ## Usage
 
-## Credentials and Region
+### AWS Credentials from Action's Inputs
 
+```
+name: ci
+
+on:
+  push:
+    branches: master
+
+jobs:
+  release-stage-and-prod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retag test/image:dev as test/image:staging and test/image:production
+        uses: abronin/ecr-retag-action@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          repository: test/image
+          tag: dev
+          new-tags: staging, production
+```
+
+### AWS Credentials from Environment Variables
+
+```
+name: ci
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+
+on:
+  push:
+    branches: master
+
+jobs:
+  release-stage-and-prod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retag test/image:dev as test/image:staging and test/image:production
+        uses: abronin/ecr-retag-action@v1
+        with:
+          repository: test/image
+          tag: dev
+          new-tags: staging, production
+```
 ## License Summary
 
 This code is made available under the MIT license.
