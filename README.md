@@ -20,7 +20,6 @@ name: ci
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  AWS_REGION: ${{ secrets.AWS_REGION }}
 
 on:
   push:
@@ -33,6 +32,7 @@ jobs:
       - name: Retag test/image:dev as test/image:staging and test/image:production
         uses: abronin/ecr-retag-action@v1
         with:
+          aws-region: us-west-2
           repository: test/image
           tag: dev
           new-tags: staging, production
