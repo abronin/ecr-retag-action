@@ -14,32 +14,6 @@ GitHub Action to add new tags to existing Docker Image. No pull/push here becaus
 
 ## Usage
 
-### AWS Credentials from Action's Inputs
-
-```
-name: ci
-
-on:
-  push:
-    branches: master
-
-jobs:
-  release-stage-and-prod:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Retag test/image:dev as test/image:staging and test/image:production
-        uses: abronin/ecr-retag-action@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-          repository: test/image
-          tag: dev
-          new-tags: staging, production
-```
-
-### AWS Credentials from Environment Variables
-
 ```
 name: ci
 

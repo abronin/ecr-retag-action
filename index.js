@@ -2,11 +2,9 @@ const core = require('@actions/core');
 const aws = require('aws-sdk')
 
 async function run() {
-  const accessKeyId = core.getInput('aws-access-key-id', { required: false })
-  const secretAccessKey = core.getInput('aws-secret-access-key', { required: false })
   const region = core.getInput('aws-region', { required: false })
   
-  const ecr = accessKeyId ? new aws.ECR() : new aws.ECR({accessKeyId, secretAccessKey, region})
+  const ecr = region ? new aws.ECR() : new aws.ECR({ region })
 
   const repositoryName = core.getInput('repository', { required: true })
   const imageTag = core.getInput('tag', { required: true })

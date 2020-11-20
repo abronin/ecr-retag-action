@@ -7,12 +7,6 @@ branding:
   color: 'blue'
 
 inputs:
-  aws-access-key-id:
-    description: 'AWS Access Key ID (not required if you provide AWS_ACCESS_KEY_ID env variable)'
-    required: false
-  aws-secret-access-key:
-    description: 'AWS Secret Access Key (not required if you provide AWS_SECRET_ACCESS_KEY env variable)'
-    required: false
   aws-region:
     description: 'AWS Region (e.g. us-east-2; not required if you provide AWS_REGION env variable)'
     required: false
