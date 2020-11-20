@@ -4,7 +4,7 @@ const aws = require('aws-sdk')
 async function run() {
   const region = core.getInput('aws-region', { required: false })
   
-  const ecr = region ? new aws.ECR() : new aws.ECR({ region })
+  const ecr = region ? new aws.ECR({ region }) : new aws.ECR()
 
   const repositoryName = core.getInput('repository', { required: true })
   const imageTag = core.getInput('tag', { required: true })
