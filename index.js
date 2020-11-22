@@ -2,8 +2,8 @@ const core = require('@actions/core');
 const aws = require('aws-sdk')
 
 async function run() {
-  const region = core.getInput('aws-region', { required: false })
-  const ecr = region ? new aws.ECR({ region }) : new aws.ECR()
+  const region = core.getInput('aws-region', { required: true })
+  const ecr = new aws.ECR({ region })
 
   const registryId = core.getInput('aws-account-id', { required: false })
   const repositoryName = core.getInput('repository', { required: true })
