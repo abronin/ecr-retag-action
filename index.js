@@ -3,14 +3,14 @@ const aws = require('aws-sdk')
 
 async function run() {
   const region = core.getInput('aws-region', { required: false })
-  
   const ecr = region ? new aws.ECR({ region }) : new aws.ECR()
 
+  const registryId = core.getInput('aws-account-id', { required: false })
   const repositoryName = core.getInput('repository', { required: true })
   const imageTag = core.getInput('tag', { required: true })
   const newTags = core.getInput('new-tags', { required: true }).replace(/\s+/g, '').split(',')
 
-  const getImageParams = { repositoryName, imageIds: [{ imageTag }]}
+  const getImageParams = { registryId, repositoryName, imageIds: [{ imageTag }]}
   
   let putImageCallback = function(err, result) {
     if (err) {

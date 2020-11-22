@@ -7,6 +7,9 @@ branding:
   color: 'blue'
 
 inputs:
+  aws-account-id:
+    description: 'The AWS account ID associated with the registry that contains the image to retag (the default registry of user is assumed)'
+    required: false
   aws-region:
     description: 'AWS Region (e.g. us-east-2; not required if you provide AWS_REGION env variable)'
     required: true
