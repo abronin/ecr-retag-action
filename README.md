@@ -32,6 +32,7 @@ jobs:
       - name: Retag test/image:dev as test/image:staging and test/image:production
         uses: abronin/ecr-retag-action@v1
         with:
+          aws-account-id: "001234567899" # optional, specify if you need to push to not main account
           aws-region: us-west-2
           repository: test/image
           tag: dev
