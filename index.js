@@ -14,6 +14,10 @@ async function run() {
   
   let putImageCallback = function(err, result) {
     if (err) {
+      if (err.code == 'ImageAlreadyExistsException') {
+        console.log('Image already exists, no action')
+        return
+      }
       core.setFailed(err.message)
     } else {
       let image = result.image
