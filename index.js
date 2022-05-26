@@ -3,8 +3,12 @@ const aws = require("@aws-sdk/client-ecr");
 
 async function run() {
   try {
-    const region = core.getInput('aws-region', { required: true })
-    const ecr = new aws.ECR({ region })
+    const region = core.getInput('aws-region', { required: false })
+    const ecrArgs = {}
+    if (region) {
+      ecrArgs['region'] = region
+    }
+    const ecr = new aws.ECR(ecrArgs)
 
     const registryId = core.getInput('aws-account-id', { required: false })
     const repositoryName = core.getInput('repository', { required: true })
@@ -12,7 +16,7 @@ async function run() {
     const newTags = core.getInput('new-tags', { required: true }).replace(/\s+/g, '').split(',')
 
     const getImageParams = { repositoryName, imageIds: [{ imageTag }] }
-    if (!!registryId) {
+    if (registryId) {
       getImageParams['registryId'] = registryId
     }
 

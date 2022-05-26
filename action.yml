@@ -12,7 +12,7 @@ inputs:
     required: false
   aws-region:
     description: 'AWS Region (e.g. us-east-2; not required if you provide AWS_REGION env variable)'
-    required: true
+    required: false
   repository:
     description: 'ECR repository name (e.g. namespace/image)'
     required: true
