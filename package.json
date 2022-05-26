@@ -27,7 +27,7 @@
   "homepage": "https://github.com/abronin/ecr-retag-action#readme",
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "aws-sdk": "^2.788.0"
+    "@aws-sdk/client-ecr": "^3.99.0"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.22.3",
