@@ -18,8 +18,8 @@ async function run() {
 
     let putImageCallback = function (err, result) {
       if (err) {
-        if (err.code == 'ImageAlreadyExistsException') {
-          core.info('Image already exists, no action')
+        if (err instanceof aws.ImageAlreadyExistsException) {
+          core.info(`${err.message}, no action`)
           return
         }
         core.setFailed(err.message)
