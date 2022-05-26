@@ -11,7 +11,10 @@ async function run() {
     const imageTag = core.getInput('tag', { required: true })
     const newTags = core.getInput('new-tags', { required: true }).replace(/\s+/g, '').split(',')
 
-    const getImageParams = { registryId, repositoryName, imageIds: [{ imageTag }] }
+    const getImageParams = { repositoryName, imageIds: [{ imageTag }] }
+    if (!!registryId) {
+      getImageParams['registryId'] = registryId
+    }
 
     let putImageCallback = function (err, result) {
       if (err) {
