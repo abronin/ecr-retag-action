@@ -26,33 +26,39 @@ async function run() {
           core.info(`${err.message}, no action`)
           return
         }
+
         core.setFailed(err.message)
-      } else {
-        let image = result.image
-        core.info(`Image tagged: ${image.repositoryName}:${image.imageId.imageTag}`)
-        core.debug(result)
       }
+
+      let image = result.image
+      core.info(`Image tagged: ${image.repositoryName}:${image.imageId.imageTag}`)
+      core.debug(result)
     }
 
     let getImageCallback = function (err, result) {
       if (err) {
-        core.setFailed(err)
-      } else {
-        let image = result.images[0]
-        core.info(`Image found: ${image.repositoryName}:${image.imageId.imageTag}`)
-        core.debug(image)
-        newTags.forEach(function (tag) {
-          ecr.putImage(
-            {
-              registryId: image.registryId,
-              repositoryName: image.repositoryName, /* required */
-              imageManifest: image.imageManifest, /* required */
-              imageTag: tag,
-            },
-            putImageCallback
-          )
-        })
+        core.setFailed(err.message)
       }
+
+      if (result.failures.length > 0) {
+        const failure = result.failures[0]
+        core.setFailed(`${failure.failureCode}: ${failure.failureReason} for tag ${failure.imageId.imageTag}`)
+      }
+
+      let image = result.images[0]
+      core.info(`Image found: ${image.repositoryName}:${image.imageId.imageTag}`)
+      core.debug(image)
+      newTags.forEach(function (tag) {
+        ecr.putImage(
+          {
+            registryId: image.registryId,
+            repositoryName: image.repositoryName, /* required */
+            imageManifest: image.imageManifest, /* required */
+            imageTag: tag,
+          },
+          putImageCallback
+        )
+      })
     }
 
     ecr.batchGetImage(getImageParams, getImageCallback);
