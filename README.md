@@ -24,6 +24,7 @@ GitHub Action to add new tags to existing Docker Image. No pull/push here becaus
             aws-region: us-west-2 # optional, specify if you don't provide AWS_REGION env variable
             repository: test/image
             tag: dev
+            digest: sha256:1234567890abcdefg1234567890abcdefg # optional, specify for more particular search
             new-tags: staging, production
           env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
