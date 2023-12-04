@@ -13,11 +13,17 @@ async function run() {
     const registryId = core.getInput('aws-account-id', { required: false })
     const repositoryName = core.getInput('repository', { required: true })
     const imageTag = core.getInput('tag', { required: true })
+    const imageDigest = core.getInput('digest', { required: false })
     const newTags = core.getInput('new-tags', { required: true }).replace(/\s+/g, '').split(',')
 
-    const getImageParams = { repositoryName, imageIds: [{ imageTag }] }
+    const getImageParams = { repositoryName, imageIds: [] }
     if (registryId) {
       getImageParams['registryId'] = registryId
+    }
+    if (imageDigest) {
+      getImageParams['imageIds'].push({imageDigest})
+    } else {
+      getImageParams['imageIds'].push({imageTag})
     }
 
     let putImageCallback = function (err, result) {
@@ -55,6 +61,7 @@ async function run() {
             repositoryName: image.repositoryName, /* required */
             imageManifest: image.imageManifest, /* required */
             imageTag: tag,
+            imageDigest: image.imageDigest
           },
           putImageCallback
         )

@@ -1,7 +1,7 @@
 # https://help.github.com/en/articles/metadata-syntax-for-github-actions
 name: Retag Docker image in AWS ECR without pulling
 description: Retag existing Docker image in AWS ECR without pulling
-author: 'Andrey Bronin <abronin@gmail.com>'
+authors: 'Andrey Bronin <abronin@gmail.com>'
 branding:
   icon: 'tag'
   color: 'blue'
@@ -19,6 +19,9 @@ inputs:
   tag:
     description: 'Image tag you want to add new tags to (e.g. latest)'
     required: true
+  digest:
+    description: 'The digest of the image tag you want to add new tags to.'
+    required: false
   new-tags:
     description: 'List of tags you want to add (e.g. v1.2.3, production, sha-1234asdf)'
     required: true
