@@ -30,7 +30,7 @@
     "@aws-sdk/client-ecr": "^3.514.0"
   },
   "engines": {
-    "node": "^20"
+    "node": "^24"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.34.0",
